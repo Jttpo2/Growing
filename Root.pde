@@ -7,7 +7,7 @@ class Root {
   float widthDecreaseMultiplierMin = 0.02;
   float widthDecreaseMultiplierMax = 0.05;
   float widthDecreaseMultiplier;
-  float widthIncreaseLikelihood = 0.5;
+  float widthIncreaseLikelihood = 0.2;
   float fadeSpeed = 2;
   
   List<Root> roots = new ArrayList<Root>();

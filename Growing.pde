@@ -1,8 +1,10 @@
 import java.util.Iterator;
 
-float newRootLikelihood = 0.9;
+float newRootLikelihood = 0.87;
 float newThicknessMin = 10;
 float newThicknessMax = 30;
+
+boolean makeNewRoots = true;
 
 List<Root> roots;;
 
@@ -16,12 +18,13 @@ void setup() {
 }
 
 void draw() {
-  float newRootDie = random(0, 1);
-  if (newRootDie > newRootLikelihood) {
-    float thicknessDie = random(newThicknessMin, newThicknessMax);
-    roots.add(new Root(mouseX, mouseY, thicknessDie, false));  
+  if (makeNewRoots) {
+    float newRootDie = random(0, 1);
+    if (newRootDie > newRootLikelihood) {
+      float thicknessDie = random(newThicknessMin, newThicknessMax);
+      roots.add(new Root(mouseX, mouseY, thicknessDie, false));  
+    }
   }
-  
   
   for (Iterator<Root> iterator = roots.iterator(); iterator.hasNext();) {
     Root root = iterator.next();
@@ -32,4 +35,9 @@ void draw() {
       iterator.remove();
     }
   }
+}
+
+void mousePressed() {
+ println("Toggling rootmaker");
+ makeNewRoots = !makeNewRoots;
 }
