@@ -9,17 +9,20 @@ class Root {
   float widthDecreaseMultiplier;
   float widthIncreaseLikelihood = 0.2;
   float fadeSpeed = 2;
-  
+ 
+  List<Circle> circles = new ArrayList<Circle>(); 
   List<Root> roots = new ArrayList<Root>();
   
   int xPos;
   int yPos;
   float radius;
+  color col;
+  float opacity;
+  
   float direction;
   float speed;
   boolean fertile;
-  color col;
-  float opacity;
+  
   
   Root(int x, int y, float rad, boolean fertile) {
     this(x, y, rad, 2, fertile);
@@ -83,11 +86,13 @@ class Root {
     if (radius < 3) {
       radius = 0;
     }
+    
+    circles.add(new Circle(xPos, yPos, radius, col));
   }
   
   void display() {
-    stroke(col);
-    fill(255);
-    ellipse(xPos, yPos, radius, radius);
+    for (Circle c: circles) {
+      c.display();
+    }
   }
 }

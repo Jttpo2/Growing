@@ -38,6 +38,6 @@ void draw() {
 }
 
 void mousePressed() {
- println("Toggling rootmaker");
- makeNewRoots = !makeNewRoots;
+  println("Toggling rootmaker");
+  makeNewRoots = !makeNewRoots;
 }
