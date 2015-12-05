@@ -46,6 +46,7 @@ class Root {
   }
   
   void grow() {
+    // Don't grow too small roots
     if (radius < minRadius) {
       return;
     }
@@ -88,17 +89,24 @@ class Root {
      radius = radius - (radius * widthDecreaseMultiplier);
     }
     
-    // Don't draw too small roots
-    //if (radius >= 3) {
-      circles.add(new Circle(xPos, yPos, radius, col));
-      //radius = 0;
-      
-    //}
+    circles.add(new Circle(xPos, yPos, radius, col));
+  }
+  
+  boolean isRemovable() {
+    Circle firstOfRoot = circles.get(0); 
+    // Removable when invisible 
+    return firstOfRoot.borderCol >= 255;
   }
     
   void display() {
-    for (Circle c: circles) {
-      c.display();
+ 
+    for (Iterator<Circle> iterator = circles.iterator(); iterator.hasNext();) {
+      Circle circle = iterator.next();
+      
+      circle.display();
+      if (circle.borderCol <= 0) {
+        iterator.remove();
+      }
     }
   }
 }

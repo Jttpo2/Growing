@@ -31,7 +31,7 @@ void draw() {
     
     root.grow();
     root.display();
-    if (root.radius <= 0) {
+    if (root.isRemovable()) {
       iterator.remove();
     }
   }
