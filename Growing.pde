@@ -1,17 +1,17 @@
-Circle[] circles;
+Root[] roots;
 
 void setup() {
   size(400, 400, P3D);
   background(255);
   
-  circles = new Circle[1];
-  circles[0] = new Circle(width/2, height/2, 20);
+  roots = new Root[1];
+  roots[0] = new Root(width/2, height/2, 20);
 }
 
 void draw() {
-  for (Circle c: circles) {
-    c.display();
-    c.move();
+  for (Root r: roots) {
+    r.display();
+    r.grow();
   }
   
   

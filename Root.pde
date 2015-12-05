@@ -1,9 +1,11 @@
-
+import java.util.Iterator;
+import java.util.List;
 
 class Root {
   float directionInterval = 50;
+  float newRootLikelihood = 0.98; 
 
-  List<Circle> circles = new ArrayList<Circle>
+  List<Root> roots = new ArrayList<Root>();
   
   int xPos;
   int yPos;
@@ -11,11 +13,11 @@ class Root {
   float direction;
   float speed;
   
-  Circle(int x, int y, int rad) {    
+  Root(int x, int y, float rad) {    
     this(x, y, rad, 2);
   }
   
-  Circle(int x, int y, int rad, float speed) {
+  Root(int x, int y, float rad, float speed) {
     xPos = x;
     yPos = y;
     radius = rad;
@@ -24,16 +26,25 @@ class Root {
   }
   
   void grow() {
-    direction += random(-directionInterval/2, directionInterval/2);  
+    float newRootDice = random(0, 1);
+    if (newRootDice > newRootLikelihood) {
+     roots.add(new Root(xPos, yPos, radius));  
+    }
     
+    for (Iterator<Root> iterator = roots.iterator(); iterator.hasNext();) {
+      Root root = iterator.next();
+      root.grow();
+      root.display();
+      if (root.radius <= 0) {
+        iterator.remove();
+      }
+    }
+    
+    direction += random(-directionInterval/2, directionInterval/2);  
     float deltaX = speed * cos(radians(direction));
     float deltaY = speed * sin(radians(direction));
-    
     xPos += deltaX;
     yPos += deltaY;
-    
-    //xPos += random(randomMin, randomMax);
-    //yPos += random(randomMin, randomMax);
 
     if (radius > 0) {
      radius = radius - (radius * 0.01);
