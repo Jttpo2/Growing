@@ -9,6 +9,7 @@ class Root {
   float widthDecreaseMultiplier;
   float widthIncreaseLikelihood = 0.2;
   float fadeSpeed = 2;
+  float minRadius = 3;
  
   List<Circle> circles = new ArrayList<Circle>(); 
   List<Root> roots = new ArrayList<Root>();
@@ -45,6 +46,10 @@ class Root {
   }
   
   void grow() {
+    if (radius < minRadius) {
+      return;
+    }
+    
     // Spawning of child roots
     if (fertile) {
       float newRootDice = random(0, 1);
@@ -82,14 +87,15 @@ class Root {
     if (radius > 0) {
      radius = radius - (radius * widthDecreaseMultiplier);
     }
-    // Don't draw too small roots
-    if (radius < 3) {
-      radius = 0;
-    }
     
-    circles.add(new Circle(xPos, yPos, radius, col));
+    // Don't draw too small roots
+    //if (radius >= 3) {
+      circles.add(new Circle(xPos, yPos, radius, col));
+      //radius = 0;
+      
+    //}
   }
-  
+    
   void display() {
     for (Circle c: circles) {
       c.display();
