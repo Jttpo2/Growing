@@ -2,6 +2,8 @@ import java.util.Iterator;
 import java.util.List;
 
 class Root {
+  float minSpeed = 1;
+  float maxSpeed = 4;
   float directionInterval = 50;
   float newRootLikelihood = 0.1;
   float widthDecreaseMultiplierMin = 0.02;
@@ -30,7 +32,8 @@ class Root {
   }
   
   Root(int x, int y, float rad) {    
-    this(x, y, rad, 2, false);
+    this(x, y, rad, false);
+    speed = random(minSpeed, maxSpeed);
   }
   
   Root(int x, int y, float rad, float speed, boolean fertile) {
@@ -76,7 +79,7 @@ class Root {
     yPos += deltaY;
 
     // Color change
-    col += fadeSpeed;
+    //col += fadeSpeed;
 
     // Width
     widthDecreaseMultiplier = random(widthDecreaseMultiplierMin, widthDecreaseMultiplierMax);
@@ -89,11 +92,12 @@ class Root {
      radius = radius - (radius * widthDecreaseMultiplier);
     }
     
+    // Append next circle to end of root
     circles.add(new Circle(xPos, yPos, radius, col));
   }
   
   boolean isRemovable() {
-    Circle firstOfRoot = circles.get(0); 
+    Circle firstOfRoot = circles.get(circles.size()-1); 
     // Removable when invisible 
     return firstOfRoot.borderCol >= 255;
   }

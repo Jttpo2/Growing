@@ -18,11 +18,12 @@ void setup() {
 }
 
 void draw() {
+  background(255);
   if (makeNewRoots) {
     float newRootDie = random(0, 1);
     if (newRootDie > newRootLikelihood) {
       float thicknessDie = random(newThicknessMin, newThicknessMax);
-      roots.add(new Root(mouseX, mouseY, thicknessDie, false));  
+      roots.add(new Root(mouseX, mouseY, thicknessDie));  
     }
   }
   
