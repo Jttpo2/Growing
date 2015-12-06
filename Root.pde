@@ -99,16 +99,10 @@ class Root {
     } else currentCol = 0;
     
     // Append next circle to end of root
-    //circles.add(new Circle(xPos, yPos, radius, currentCol));
-    
-    Circle circle = new Circle(xPos, yPos, radius, currentCol);
-    circle.display();
+    circles.add(new Circle(xPos, yPos, radius, currentCol));
   }
   
   boolean isRemovable() {
-    if (circles.isEmpty()) {
-      return true;
-    }
     Circle firstOfRoot = circles.get(circles.size()-1); 
     // Removable when invisible 
     return firstOfRoot.borderCol >= 255;
