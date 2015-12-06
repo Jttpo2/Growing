@@ -14,6 +14,7 @@ List<Root> roots;;
 
 void setup() {
   size(400, 400, P2D);
+  frameRate(350);
   background(255);
   
   //blur = loadShader("blur.glsl");
@@ -23,7 +24,9 @@ void setup() {
 }
 
 void draw() {
-  background(255);
+  //background(255);
+  fill(255, 5);
+  rect(0, 0, width, height);
   
   if (makeNewRoots) {
     float newRootDie = random(0, 1);
@@ -44,6 +47,8 @@ void draw() {
   }
   
   //filter(BLUR, 0.5);
+  // Frame rate in title bar
+  surface.setTitle((int) frameRate + " fps");
 }
 
 void mousePressed() {

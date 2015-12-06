@@ -5,7 +5,7 @@ class Circle {
   int yPos;
   float radius;
   color borderCol;
-  color fillCol;
+  color fillCol = 255;
   float opacity;
   float borderThickness;
   
@@ -14,16 +14,15 @@ class Circle {
     yPos = y;
     radius = rad;
     borderCol = c;
-    //borderCol = (int) (radius*5 ); // Depending on radius
-    fillCol = 255;   
+    //borderCol = (int) (radius*5 ); // Depending on radius  
   }
   
   void display() {
     
     // fade the border
-    if (borderCol < 255) {
-      borderCol += fadingSpeed;
-    }
+    //if (borderCol < 255) {
+    //  borderCol += fadingSpeed;
+    //}
     stroke(borderCol);
     borderThickness = 0.8 + radius * 0.03;
     strokeWeight(borderThickness);

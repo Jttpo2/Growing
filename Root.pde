@@ -21,7 +21,7 @@ class Root {
   int xPos;
   int yPos;
   float radius;
-  color startCol = 230;
+  color startCol = 0;
   color currentCol;
   float opacity;
   float borderThickness;
@@ -56,7 +56,7 @@ class Root {
   void grow() {
     // Don't grow too small roots
     if (radius < minRadius) {
-      return;
+     return;
     }
     
     // Spawning of child roots
@@ -94,29 +94,36 @@ class Root {
      radius = radius - (radius * widthDecreaseMultiplier);
     }
     
-    if (currentCol > 0) {
-      currentCol -= 5;
-    } else currentCol = 0;
+    //if (currentCol > 0) {
+    //  currentCol -= 5;
+    //} else currentCol = 0;
     
     // Append next circle to end of root
-    circles.add(new Circle(xPos, yPos, radius, currentCol));
+    //circles.add(new Circle(xPos, yPos, radius, currentCol));
   }
   
   boolean isRemovable() {
-    Circle firstOfRoot = circles.get(circles.size()-1); 
-    // Removable when invisible 
-    return firstOfRoot.borderCol >= 255;
+    return false;
+    //Circle firstOfRoot = circles.get(circles.size()-1); 
+    //// Removable when invisible 
+    //return firstOfRoot.borderCol >= 255;
   }
     
   void display() {
- 
-    for (Iterator<Circle> iterator = circles.iterator(); iterator.hasNext();) {
-      Circle circle = iterator.next();
-      
-      circle.display();
-      if (circle.borderCol <= 0) {
-        iterator.remove();
-      }
+    // Don't grow too small roots
+    if (radius < minRadius) {
+     return;
     }
+    Circle circle = new Circle(xPos, yPos, radius, currentCol);
+    circle.display();
+    
+    //for (Iterator<Circle> iterator = circles.iterator(); iterator.hasNext();) {
+    //  Circle circle = iterator.next();
+      
+    //  circle.display();
+    //  if (circle.borderCol <= 0) {
+    //    iterator.remove();
+    //  }
+    //}
   }
 }
