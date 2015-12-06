@@ -2,7 +2,7 @@ class RootMaker {
   List<Root> roots;
   Input input;
   
-  final static float defaultNewRootLikelihood = 0.8;
+  final static float defaultNewRootLikelihood = 0.9;
   final static float defaultNewSmallRootLikelihood = defaultNewRootLikelihood * 0.5;
   float newRootLikelihood;
   float newSmallRootLikelihood;
@@ -32,7 +32,7 @@ class RootMaker {
     input.update();
     float maxDistance = max(width, height);
     int distanceDivider = 20; 
-    newRootLikelihood = map(input.distanceFromLast, 0, maxDistance/distanceDivider, defaultNewRootLikelihood*1, defaultNewRootLikelihood *0.5); 
+    newRootLikelihood = map(input.distanceFromLast, 0, maxDistance/distanceDivider, defaultNewRootLikelihood*1, defaultNewRootLikelihood *0.3); 
     println(newRootLikelihood);
     newSmallRootLikelihood = newRootLikelihood * 0.9;
     
@@ -81,11 +81,11 @@ class RootMaker {
     float smallThicknessDie = random(smallThicknessMin, smallThicknessMax);
     
     // For fat traces, more opportunities at creation are needed. Hence the loop
-    int chances =  (int)(newRootLikelihood *100) ;
-    println("chances: " + chances);
+    int chances = 3;
     for (; chances > 0; chances--) {
       if (newSmallRootDie > newSmallRootLikelihood) { 
-        roots.add(new Root(input.x, input.y, smallThicknessDie, smallSpeed, 240));
+        color smallFillColor = 240;
+        roots.add(new Root(input.x, input.y, smallThicknessDie, smallSpeed, smallFillColor));
       }
       
       if (newRootDie > newRootLikelihood) {

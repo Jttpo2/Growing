@@ -18,7 +18,7 @@ static final String defaultInputType = Input.mouse;
 
 void setup() {
   size(600, 600, P3D);
-  frameRate(150);
+  frameRate(120);
   background(255);
   
   blur = loadShader("blur.glsl");
