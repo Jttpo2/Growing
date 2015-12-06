@@ -1,5 +1,9 @@
 import java.util.Iterator;
 
+Input input;
+final String inputType = "mouse";
+//final String inputType = "phone";
+
 PShader blur;
 float sigma = 0.31;
 int blurSize = 2;
@@ -20,6 +24,8 @@ void setup() {
   frameRate(100);
   background(255);
   
+  input = new Input(inputType);
+  
   blur = loadShader("blur.glsl");
   blur.set("sigma", sigma);
   blur.set("blurSize", blurSize);
@@ -27,7 +33,9 @@ void setup() {
   roots = new ArrayList<Root>();
 }
 
-void draw() {  
+void draw() {
+  input.update();
+  
   if (millis() - lastFade > fadeInterval) {
     fill(255, 2);
     rect(0, 0, width, height);
@@ -39,7 +47,7 @@ void draw() {
     float newRootDie = random(0, 1);
     if (newRootDie > newRootLikelihood) {
       float thicknessDie = random(newThicknessMin, newThicknessMax);
-      roots.add(new Root(mouseX, mouseY, thicknessDie));  
+      roots.add(new Root(input.x, input.y, thicknessDie));  
     }
   }
   
