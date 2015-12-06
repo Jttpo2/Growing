@@ -1,8 +1,11 @@
 import java.util.Iterator;
 
 PShader blur;
-float sigma = 0.3;
+float sigma = 0.31;
 int blurSize = 2;
+
+long fadeInterval = 100;
+long lastFade = 0;
 
 float newRootLikelihood = 0.8;
 float newThicknessMin = 10;
@@ -25,10 +28,12 @@ void setup() {
 }
 
 void draw() {  
-  fill(255, 5);
-  rect(0, 0, width, height);
+  if (millis() - lastFade > fadeInterval) {
+    fill(255, 2);
+    rect(0, 0, width, height);
+    filter(blur);
+  }
   
-  filter(blur);
   
   if (makeNewRoots) {
     float newRootDie = random(0, 1);

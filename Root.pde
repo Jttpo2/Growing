@@ -12,7 +12,7 @@ class Root {
   float widthIncreaseLikelihood = 0.2;
   float minRadius = 3;
   
-  float xOffset = 0; // For Perlin noise generation 
+  //float xOffset = 0; // For Perlin noise generation 
  
   List<Circle> circles = new ArrayList<Circle>(); 
   List<Root> roots = new ArrayList<Root>();
@@ -74,23 +74,22 @@ class Root {
     }
     
     // Calculate new position
-    //direction += random(-directionInterval/2, directionInterval/2);
-    xOffset += 0.01;
-    direction = 90;// + noise(xPos+ xOffset);
+    direction += random(-directionInterval/2, directionInterval/2);
+    
     float deltaX = speed * cos(radians(direction));
     float deltaY = speed * sin(radians(direction));
     xPos += deltaX;
     yPos += deltaY;
 
-    // Width
+    //Width
     widthDecreaseMultiplier = random(widthDecreaseMultiplierMin, widthDecreaseMultiplierMax);
     // sometimes the roots grow a tiny bit in girth
     float increaseGirthDice = random(0, 1);
     if (increaseGirthDice < widthIncreaseLikelihood) {
-      widthDecreaseMultiplier = -widthDecreaseMultiplier;
+     widthDecreaseMultiplier = -widthDecreaseMultiplier;
     }
     if (radius > 0) {
-     radius = radius - (radius * widthDecreaseMultiplier);
+    radius = radius - (radius * widthDecreaseMultiplier);
     }
     
     //if (currentCol > 0) {
