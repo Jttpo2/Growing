@@ -15,6 +15,7 @@ boolean continuous = true; // Continuous mode produces roots all the time
 boolean makeNewRoots = true; // Or at least until toggled
 
 List<RootMaker> rootMakers;
+static final String defaultInputType = Input.mouse;
 
 void setup() {
   size(600, 600, P3D);
@@ -26,7 +27,7 @@ void setup() {
   blur.set("blurSize", blurSize);
   
   rootMakers = new ArrayList<RootMaker>();
-  rootMakers.add(new RootMaker(Input.mouse));
+  rootMakers.add(new RootMaker(defaultInputType));
 }
 
 void draw() {
