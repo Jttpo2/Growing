@@ -1,8 +1,8 @@
 import java.util.Iterator;
 
 Input input;
-//final String inputType = "mouse";
-final String inputType = "phone";
+final String inputType = "mouse";
+//final String inputType = "phone";
 
 PShader blur;
 float sigma = 0.31;
