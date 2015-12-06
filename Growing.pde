@@ -1,8 +1,8 @@
 import java.util.Iterator;
 
 Input input;
-final String inputType = "mouse";
-//final String inputType = "phone";
+final static String inputType = "mouse";
+//final static String inputType = "phone";
 
 PShader blur;
 float sigma = 0.31;
@@ -18,11 +18,12 @@ float newThicknessMax = 30;
 boolean continuous = true; // Continuous mode produces roots all the time
 boolean makeNewRoots = true; // Or at least until toggled
 
-List<Root> roots;;
+List<RootMaker> rootMakers;
+
 
 void setup() {
   size(600, 600, P3D);
-  frameRate(200);
+  frameRate(150);
   background(255);
   
   input = new Input(inputType);
@@ -31,7 +32,8 @@ void setup() {
   blur.set("sigma", sigma);
   blur.set("blurSize", blurSize);
   
-  roots = new ArrayList<Root>();
+  rootMakers = new ArrayList<RootMaker>();
+  rootMakers.add(new RootMaker());
 }
 
 void draw() {
@@ -43,27 +45,8 @@ void draw() {
     filter(blur);
   }
   
-  // In continuous mode we make roots all the time if toggle is on
-  // Otherwise we just grow them while pressing a mouse button
-  if (continuous) {
-    if (makeNewRoots) {
-      makeRoots();
-    }
-  } else {
-    if (mousePressed) {
-      makeRoots();
-    }
-  }
-  
-  for (Iterator<Root> iterator = roots.iterator(); iterator.hasNext();) {
-    Root root = iterator.next();
-    
-    root.grow();
-    
-    root.display();
-    if (root.isRemovable()) {
-      iterator.remove();
-    }
+  for (RootMaker rm: rootMakers) {
+    rm.update();
   }
   
   //filter(BLUR, 0.6);
@@ -72,15 +55,6 @@ void draw() {
   // Frame rate in title bar
   surface.setTitle((int) frameRate + " fps");
 }
-
-void makeRoots() {
-  float newRootDie = random(0, 1);
-  if (newRootDie > newRootLikelihood) {
-    float thicknessDie = random(newThicknessMin, newThicknessMax);
-    roots.add(new Root(input.x, input.y, thicknessDie));  
-  }
-}
-
 
 void mousePressed() {
   if (mouseButton == LEFT) {

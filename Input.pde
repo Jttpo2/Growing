@@ -8,8 +8,8 @@ class Input {
   int y;
   
   String type;
-  final String mouse = "mouse";
-  final String phone = "phone";
+  final static String mouse = "mouse";
+  final static String phone = "phone";
   boolean flatMode = true; // If true flat is normal state, if false up is normal state. Mobile will be held as a joystick instead of in the palm
 
   OscP5 osc;
