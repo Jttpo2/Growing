@@ -8,10 +8,6 @@ int blurSize = 2;
 long fadeInterval = 100;
 long lastFade = 0;
 
-float newRootLikelihood = 0.8;
-float newThicknessMin = 10;
-float newThicknessMax = 30;
-
 boolean continuous = false; // Continuous mode produces roots all the time
 boolean makeNewRoots = true; // Or at least until toggled
 

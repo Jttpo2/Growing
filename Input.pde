@@ -6,8 +6,11 @@ import oscP5.*;
 class Input {
   int x;
   int y;
-  
+  int prevX = 0;
+  int prevY = 0;
+  float distanceFromLast;
   String type;
+  
   final static String mouse = "mouse";
   final static String accelerometer = "accelerometer";
   final static String tuio = "TUIO";
@@ -36,6 +39,10 @@ class Input {
   }
 
   void update() {
+   //println(x + " " + y + " " + prevX + " " + prevY + " " + distanceFromLast);
+    prevX = x;
+    prevY = y;
+    
     if (type.equals(mouse)) {
       x = mouseX;
       y = mouseY;
@@ -45,6 +52,11 @@ class Input {
       x = (int) map(tuioCursor.getX(), 0, 1, 0, width);
       y = (int) map(tuioCursor.getY(), 0, 1, 0, height);
     }
+    //println(x + " " + y + " " + prevX + " " + prevY + " " + distanceFromLast);
+    distanceFromLast = twoPointDistance(x, y, prevX, prevY);
+    
+    
+    
   }
   
   // Do something with received accelerometer values
@@ -68,6 +80,11 @@ class Input {
   void initPhoneConnection() {
     osc = new OscP5(this, oscPort);
     osc.plug(this, "shake", accelerometerLabel); 
+  }
+
+  // Calculate distance between 2 points using the Pythagorean theorem
+  float twoPointDistance(float currentX, float currentY, float prevX, float prevY) {
+    return sqrt(pow(currentX - prevX, 2) + pow(currentY - prevY, 2));
   }
 
 }

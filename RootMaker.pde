@@ -2,13 +2,19 @@ class RootMaker {
   List<Root> roots;
   Input input;
   
+  final static float defaultNewRootLikelihood = 0.8;
+  final static float defaultNewSmallRootLikelihood = defaultNewRootLikelihood * 0.5;
+  float newRootLikelihood;
+  float newSmallRootLikelihood;
+  final static float newThicknessMin = 10;
+  final static float newThicknessMax = 30;
   final static float minSpeed = 1;
   final static float maxSpeed = 4;
   final static float smallSpeedMin = minSpeed * 0.3;
   final static float smallSpeedMax = maxSpeed * 0.3;
-  float smallThicknessMin = newThicknessMin * 0.3;
-  float smallThicknessMax = newThicknessMax * 0.3;
-  final static float newSmallRootLikelihood = 0.5;
+  final static float smallThicknessMin = newThicknessMin * 0.3;
+  final static float smallThicknessMax = newThicknessMax * 0.3;
+  
   
   boolean makeNew;
   
@@ -24,7 +30,18 @@ class RootMaker {
   
   void update() {
     input.update();
+    float maxDistance = max(width, height);
+    int distanceDivider = 20; 
+    newRootLikelihood = map(input.distanceFromLast, 0, maxDistance/distanceDivider, defaultNewRootLikelihood*1, defaultNewRootLikelihood *0.5); 
+    println(newRootLikelihood);
+    newSmallRootLikelihood = newRootLikelihood * 0.9;
     
+    //fill(255);
+    //noStroke();
+    //rect(10, 10, 100, 40);
+    //fill(0);
+    //textSize(20);
+    //text(newRootLikelihood, 30, 30);
     
     if (input.type.equals(Input.tuio)) {
       if (makeNew) {
