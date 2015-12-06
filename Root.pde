@@ -12,6 +12,8 @@ class Root {
   float widthIncreaseLikelihood = 0.2;
   float fadeSpeed = 2;
   float minRadius = 3;
+  //float minBorderThickness = 0.9;
+  //float maxBorderThickness = 2.0;
  
   List<Circle> circles = new ArrayList<Circle>(); 
   List<Root> roots = new ArrayList<Root>();
@@ -21,6 +23,7 @@ class Root {
   float radius;
   color col;
   float opacity;
+  float borderThickness;
   
   float direction;
   float speed;
@@ -46,6 +49,7 @@ class Root {
     //sizeDecreaseMultiplier = random(0.02, 0.1);
     col = 0; 
     opacity = 255;
+    //borderThickness = random(minBorderThickness, maxBorderThickness);
   }
   
   void grow() {
@@ -107,6 +111,7 @@ class Root {
     for (Iterator<Circle> iterator = circles.iterator(); iterator.hasNext();) {
       Circle circle = iterator.next();
       
+      //strokeWeight(borderThickness);
       circle.display();
       if (circle.borderCol <= 0) {
         iterator.remove();
