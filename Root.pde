@@ -22,6 +22,8 @@ class Root {
   float radius;
   color startCol = 0;
   color currentCol;
+  color startFillColor = 255;
+  color fillColor = startFillColor;
   float opacity;
   float borderThickness;
   
@@ -29,6 +31,10 @@ class Root {
   float speed;
   boolean fertile;
   
+  Root(int x, int y, float rad, float speed, color fillColor) {
+    this(x, y, rad, speed, false);
+    this.fillColor = fillColor;
+  }
   
   Root(int x, int y, float rad, boolean fertile) {
     this(x, y, rad, 2, fertile);
@@ -112,7 +118,7 @@ class Root {
     if (isFullyGrown()) {
      return;
     }
-    Circle circle = new Circle(xPos, yPos, radius, currentCol);
+    Circle circle = new Circle(xPos, yPos, radius, currentCol, fillColor);
     circle.display();
   }
 }

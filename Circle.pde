@@ -5,16 +5,21 @@ class Circle {
   int yPos;
   float radius;
   color borderCol;
-  color fillCol = 255;
+  color fillCol;
   float opacity;
   float borderThickness;
   
-  Circle(int x, int y, float rad, color c) {
+  Circle(int x, int y, float rad, color c, color fillColor) {
     xPos = x;
     yPos = y;
     radius = rad;
     borderCol = c;
-    //borderCol = (int) (radius*5 ); // Depending on radius  
+    //borderCol = (int) (radius*5 ); // Depending on radius
+    fillCol = fillColor;
+  }
+  
+  Circle(int x, int y, float rad, color c) {
+     this(x, y, rad, c, 255);
   }
   
   void display() {

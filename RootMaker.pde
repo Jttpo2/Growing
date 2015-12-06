@@ -2,6 +2,14 @@ class RootMaker {
   List<Root> roots;
   Input input;
   
+  final static float minSpeed = 1;
+  final static float maxSpeed = 4;
+  final static float smallSpeedMin = minSpeed * 0.3;
+  final static float smallSpeedMax = maxSpeed * 0.3;
+  float smallThicknessMin = newThicknessMin * 0.3;
+  float smallThicknessMax = newThicknessMax * 0.3;
+  final static float newSmallRootLikelihood = 0.5;
+  
   boolean makeNew;
   
   RootMaker(String inputType) {
@@ -47,11 +55,23 @@ class RootMaker {
   }
   
   void makeRoots() {
+    // Add lots of small ones for filling 
+    
+    float newSmallRootDie = random(0, 1);
+    
+    float smallSpeed = random(smallSpeedMin, smallSpeedMax);
+    float smallThicknessDie = random(smallThicknessMin, smallThicknessMax);
+    if (newSmallRootDie > newSmallRootLikelihood) { 
+      roots.add(new Root(input.x, input.y, smallThicknessDie, smallSpeed, 240));
+    }
+    
     float newRootDie = random(0, 1);
     if (newRootDie > newRootLikelihood) {
       float thicknessDie = random(newThicknessMin, newThicknessMax);
       roots.add(new Root(input.x, input.y, thicknessDie));  
     }
+    
+    
   }
   
   void start() {
