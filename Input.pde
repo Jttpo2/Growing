@@ -39,21 +39,25 @@ class Input {
   }
 
   void update() {
-   //println(x + " " + y + " " + prevX + " " + prevY + " " + distanceFromLast);
+   println(x + " " + y + " " + prevX + " " + prevY + " " + distanceFromLast);
     prevX = x;
     prevY = y;
     
     if (type.equals(mouse)) {
       x = mouseX;
       y = mouseY;
+      
+      distanceFromLast = twoPointDistance(x, y, prevX, prevY);
     } else if (type.equals(accelerometer)) {
       
     } else if (type.equals(tuio)) {
       x = (int) map(tuioCursor.getX(), 0, 1, 0, width);
       y = (int) map(tuioCursor.getY(), 0, 1, 0, height);
+      
+      distanceFromLast = twoPointDistance(x, y, prevX, prevY);
     }
-    //println(x + " " + y + " " + prevX + " " + prevY + " " + distanceFromLast);
-    distanceFromLast = twoPointDistance(x, y, prevX, prevY);
+    println(x + " " + y + " " + prevX + " " + prevY + " " + distanceFromLast);
+    
     
     
     
@@ -62,6 +66,8 @@ class Input {
   // Do something with received accelerometer values
   void shake(float x, float y, float z) {
     //println(x + " " + y + " " + z );
+    prevX = this.x;
+    prevY = this.y;
     
     float max = 0.7; // so you don't have to tilt the phone all the way
     if (flatMode) {
@@ -71,6 +77,7 @@ class Input {
       this.x = (int) map(z, max, -max, 0, width);
       this.y = (int) map(x, -max, max, 0, height);
     }
+    distanceFromLast = twoPointDistance(this.x, this.y, prevX, prevY);
   }
   
   void oscEvent(OscMessage m) {

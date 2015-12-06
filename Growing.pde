@@ -15,6 +15,7 @@ ConcurrentHashMap <RootMaker, RootMaker> rootMakers;
 ConcurrentHashMap <RootMaker, RootMaker> removalQueue;
 
 static final String defaultInputType = Input.mouse;
+//static final String defaultInputType = Input.accelerometer;
 
 void setup() {
   size(600, 600, P3D);
