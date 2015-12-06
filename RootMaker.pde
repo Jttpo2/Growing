@@ -75,17 +75,23 @@ class RootMaker {
     // Add lots of small ones for filling 
     
     float newSmallRootDie = random(0, 1);
+    float newRootDie = random(0, 1);
     
     float smallSpeed = random(smallSpeedMin, smallSpeedMax);
     float smallThicknessDie = random(smallThicknessMin, smallThicknessMax);
-    if (newSmallRootDie > newSmallRootLikelihood) { 
-      roots.add(new Root(input.x, input.y, smallThicknessDie, smallSpeed, 240));
-    }
     
-    float newRootDie = random(0, 1);
-    if (newRootDie > newRootLikelihood) {
-      float thicknessDie = random(newThicknessMin, newThicknessMax);
-      roots.add(new Root(input.x, input.y, thicknessDie));  
+    // For fat traces, more opportunities at creation are needed. Hence the loop
+    int chances =  (int)(newRootLikelihood *100) ;
+    println("chances: " + chances);
+    for (; chances > 0; chances--) {
+      if (newSmallRootDie > newSmallRootLikelihood) { 
+        roots.add(new Root(input.x, input.y, smallThicknessDie, smallSpeed, 240));
+      }
+      
+      if (newRootDie > newRootLikelihood) {
+        float thicknessDie = random(newThicknessMin, newThicknessMax);
+        roots.add(new Root(input.x, input.y, thicknessDie));  
+      }
     }
     
     
