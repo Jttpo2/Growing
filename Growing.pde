@@ -2,7 +2,6 @@ import java.util.Iterator;
 
 //PShader blur;
 
-//float newRootLikelihood = 0.87;
 float newRootLikelihood = 0.8;
 float newThicknessMin = 10;
 float newThicknessMax = 30;
@@ -10,7 +9,6 @@ float newThicknessMax = 30;
 boolean makeNewRoots = true;
 
 List<Root> roots;;
-
 
 void setup() {
   size(400, 400, P2D);
@@ -20,7 +18,6 @@ void setup() {
   //blur = loadShader("blur.glsl");
   
   roots = new ArrayList<Root>();
-  //roots.add(new Root(width/2, height/2, 20, true));
 }
 
 void draw() {
@@ -47,6 +44,7 @@ void draw() {
   }
   
   //filter(BLUR, 0.5);
+  
   // Frame rate in title bar
   surface.setTitle((int) frameRate + " fps");
 }
