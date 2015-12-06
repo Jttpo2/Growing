@@ -12,10 +12,11 @@ float newRootLikelihood = 0.8;
 float newThicknessMin = 10;
 float newThicknessMax = 30;
 
-boolean continuous = true; // Continuous mode produces roots all the time
+boolean continuous = false; // Continuous mode produces roots all the time
 boolean makeNewRoots = true; // Or at least until toggled
 
 ConcurrentHashMap <RootMaker, RootMaker> rootMakers;
+ConcurrentHashMap <RootMaker, RootMaker> removalQueue;
 
 static final String defaultInputType = Input.mouse;
 
@@ -31,6 +32,8 @@ void setup() {
   rootMakers = new ConcurrentHashMap<RootMaker, RootMaker>();
   RootMaker newRM = new RootMaker(defaultInputType);
   rootMakers.put(newRM, newRM);
+  
+  removalQueue = new ConcurrentHashMap<RootMaker, RootMaker>();
 }
 
 void draw() {
@@ -51,17 +54,35 @@ void draw() {
    
   // Frame rate in title bar
   surface.setTitle((int) frameRate + " fps");
+  
+  // Remove rootmakers only after they've stopped growing
+  Iterator<RootMaker> removalIterator = removalQueue.keySet().iterator();
+  while (removalIterator.hasNext()) {
+    RootMaker rm = removalIterator.next();
+    if (rm.isFullyGrown()) {
+        rootMakers.remove(rm);
+      }
+  }
+}
+
+void remove(RootMaker rm) {
+  rm.stop();
+  removalQueue.put(rm, rm);
 }
 
 void mousePressed() {
-  if (mouseButton == LEFT) {
-    if (continuous) {
-      // Toggle rootmaking on/off
-      println("Toggling rootmaker");
-      makeNewRoots = !makeNewRoots;
+    if (mouseButton == LEFT) {
+      if (continuous) {
+        // Toggle rootmaking on/off
+        println("Toggling Rootmaking");
+        makeNewRoots = !makeNewRoots;
+      } else {
+        //println("left");
+      }
+          
+    } else if (mouseButton == RIGHT) {
+      // Toggle Continuous Mode
+      continuous = !continuous;
+      println("Toggling Continuous Mode");
     }
-  } else if (mouseButton == RIGHT) {
-    // Toggle Continuous Mode
-    continuous = !continuous;
   }
-}

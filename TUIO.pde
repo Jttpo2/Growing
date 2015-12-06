@@ -46,7 +46,9 @@ void removeTuioCursor(TuioCursor tcur) {
       if (rm.input.type.equals(Input.tuio)) {
         if (rm.input.tuioCursor.getCursorID() == tcur.getCursorID()) {
           //iterator.remove();
-          rootMakers.remove(rm);
+          //rootMakers.remove(rm);
+          // Put in removal queue
+          remove(rm);
         }
     }
   }

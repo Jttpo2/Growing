@@ -2,6 +2,8 @@ class RootMaker {
   List<Root> roots;
   Input input;
   
+  boolean makeNew;
+  
   RootMaker(String inputType) {
     this(inputType, null);
   }
@@ -9,22 +11,28 @@ class RootMaker {
   RootMaker(String inputType, TuioCursor tuioCursor) {
     roots = new ArrayList<Root>();
     input = new Input(inputType, tuioCursor);
+    makeNew = makeNewRoots; // Gotten from main file = Hack
   }
   
   void update() {
     input.update();
     
+    
+    if (input.type.equals(Input.tuio)) {
+      if (makeNew) {
+        makeRoots();
+      }
     // In continuous mode we make roots all the time if toggle is on
     // Otherwise we just grow them while pressing a mouse button
-    if (continuous) {
+    } else if (continuous) {
       if (makeNewRoots) {
         makeRoots();
       }
-    } else {
-      if (mousePressed) {
-        makeRoots();
+      } else {
+        if (mousePressed) {
+          makeRoots();
+        }
       }
-    }
     
     for (Iterator<Root> iterator = roots.iterator(); iterator.hasNext();) {
       Root root = iterator.next();
@@ -50,6 +58,20 @@ class RootMaker {
   }
   
   void stop() {
+    makeNew = false;
   }
+  
+  // Checks if RootMaker is active
+  boolean isFullyGrown() {
+    for (Root r: roots) {
+      // See if any individual root is still growing
+      if (!r.isFullyGrown()) {
+        return false;
+      }
+    }
+    return true;
+  }
+  
+  
   
 }

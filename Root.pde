@@ -102,10 +102,14 @@ class Root {
     //// Removable when invisible 
     //return firstOfRoot.borderCol >= 255;
   }
+  
+  boolean isFullyGrown() {
+    return radius < minRadius;
+  }
     
   void display() {
     // Don't grow too small roots
-    if (radius < minRadius) {
+    if (isFullyGrown()) {
      return;
     }
     Circle circle = new Circle(xPos, yPos, radius, currentCol);
