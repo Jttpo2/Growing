@@ -15,13 +15,14 @@ float newRootLikelihood = 0.8;
 float newThicknessMin = 10;
 float newThicknessMax = 30;
 
-boolean makeNewRoots = true;
+boolean continuous = true; // Continuous mode produces roots all the time
+boolean makeNewRoots = true; // Or at least until toggled
 
 List<Root> roots;;
 
 void setup() {
-  size(400, 400, P2D);
-  frameRate(100);
+  size(600, 600, P2D);
+  frameRate(200);
   background(255);
   
   input = new Input(inputType);
@@ -42,12 +43,15 @@ void draw() {
     filter(blur);
   }
   
-  
-  if (makeNewRoots) {
-    float newRootDie = random(0, 1);
-    if (newRootDie > newRootLikelihood) {
-      float thicknessDie = random(newThicknessMin, newThicknessMax);
-      roots.add(new Root(input.x, input.y, thicknessDie));  
+  // In continuous mode we make roots all the time if toggle is on
+  // Otherwise we just grow them while pressing a mouse button
+  if (continuous) {
+    if (makeNewRoots) {
+      makeRoots();
+    }
+  } else {
+    if (mousePressed) {
+      makeRoots();
     }
   }
   
@@ -69,7 +73,24 @@ void draw() {
   surface.setTitle((int) frameRate + " fps");
 }
 
+void makeRoots() {
+  float newRootDie = random(0, 1);
+  if (newRootDie > newRootLikelihood) {
+    float thicknessDie = random(newThicknessMin, newThicknessMax);
+    roots.add(new Root(input.x, input.y, thicknessDie));  
+  }
+}
+
+
 void mousePressed() {
-  println("Toggling rootmaker");
-  makeNewRoots = !makeNewRoots;
+  if (mouseButton == LEFT) {
+    if (continuous) {
+      // Toggle rootmaking on/off
+      println("Toggling rootmaker");
+      makeNewRoots = !makeNewRoots;
+    }
+  } else if (mouseButton == RIGHT) {
+    // Toggle Continuous Mode
+    continuous = !continuous;
+  }
 }
