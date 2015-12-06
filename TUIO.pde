@@ -26,7 +26,9 @@ void removeTuioObject(TuioObject tobj) {
 // called when a cursor is added to the scene
 void addTuioCursor(TuioCursor tcur) {
   println("add cur "+tcur.getCursorID()+" ("+tcur.getSessionID()+ ") " +tcur.getX()+" "+tcur.getY());
-  rootMakers.add(new RootMaker(Input.tuio, tcur));
+  //rootMakers.add(new RootMaker(Input.tuio, tcur));
+  RootMaker newRM = new RootMaker(Input.tuio, tcur);
+  rootMakers.put(newRM, newRM);
 }
 
 // called when a cursor is moved
@@ -47,14 +49,25 @@ void updateTuioCursor (TuioCursor tcur) {
 // called when a cursor is removed from the scene
 void removeTuioCursor(TuioCursor tcur) {
   println("del cur "+tcur.getCursorID()+" ("+tcur.getSessionID()+")");
-  for (Iterator<RootMaker> iterator = rootMakers.iterator(); iterator.hasNext();) {
-     RootMaker rm = iterator.next();
-     if (rm.input.type.equals(Input.tuio)) {
-       if (rm.input.tuioCursor.getCursorID() == tcur.getCursorID()) {
-         iterator.remove();
-       }
-     }
-   }
+  //for (Iterator<RootMaker> iterator = rootMakers.iterator(); iterator.hasNext();) {
+  //   RootMaker rm = iterator.next();
+  //   if (rm.input.type.equals(Input.tuio)) {
+  //     if (rm.input.tuioCursor.getCursorID() == tcur.getCursorID()) {
+  //       iterator.remove();
+  //     }
+  //   }
+  // }
+  
+  Iterator<RootMaker> iterator = rootMakers.keySet().iterator();
+  while(iterator.hasNext()) {
+    RootMaker rm = iterator.next();
+      if (rm.input.type.equals(Input.tuio)) {
+        if (rm.input.tuioCursor.getCursorID() == tcur.getCursorID()) {
+          //iterator.remove();
+          rootMakers.remove(rm);
+        }
+    }
+  }
 }
 
 // --------------------------------------------------------------

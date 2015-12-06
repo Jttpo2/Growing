@@ -1,4 +1,5 @@
 import java.util.Iterator;
+import java.util.concurrent.ConcurrentHashMap;
 
 PShader blur;
 float sigma = 0.31;
@@ -14,7 +15,9 @@ float newThicknessMax = 30;
 boolean continuous = true; // Continuous mode produces roots all the time
 boolean makeNewRoots = true; // Or at least until toggled
 
-List<RootMaker> rootMakers;
+//List<RootMaker> rootMakers;
+ConcurrentHashMap <RootMaker, RootMaker> rootMakers;
+
 static final String defaultInputType = Input.mouse;
 
 void setup() {
@@ -26,8 +29,12 @@ void setup() {
   blur.set("sigma", sigma);
   blur.set("blurSize", blurSize);
   
-  rootMakers = new ArrayList<RootMaker>();
-  rootMakers.add(new RootMaker(defaultInputType));
+  //rootMakers = new ArrayList<RootMaker>();
+  //rootMakers.add(new RootMaker(defaultInputType));
+  
+  rootMakers = new ConcurrentHashMap<RootMaker, RootMaker>();
+  RootMaker newRM = new RootMaker(defaultInputType);
+  rootMakers.put(newRM, newRM);
 }
 
 void draw() {
@@ -38,8 +45,13 @@ void draw() {
     filter(blur);
   }
   
-  for (RootMaker rm: rootMakers) {
-    rm.update();
+  //for (RootMaker rm: rootMakers) {
+  //  rm.update();
+  //}
+  
+  Iterator<RootMaker> iterator = rootMakers.keySet().iterator();
+  while (iterator.hasNext()) {
+    iterator.next().update();
   }
   
   //filter(BLUR, 0.6);
