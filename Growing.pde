@@ -1,6 +1,7 @@
 import java.util.Iterator;
 
-float newRootLikelihood = 0.87;
+//float newRootLikelihood = 0.87;
+float newRootLikelihood = 0.8;
 float newThicknessMin = 10;
 float newThicknessMax = 30;
 
@@ -14,7 +15,7 @@ void setup() {
   background(255);
   
   roots = new ArrayList<Root>();
-  roots.add(new Root(width/2, height/2, 20, true));
+  //roots.add(new Root(width/2, height/2, 20, true));
 }
 
 void draw() {
