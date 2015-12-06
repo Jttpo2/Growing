@@ -21,7 +21,8 @@ class Root {
   int xPos;
   int yPos;
   float radius;
-  color col;
+  color startCol = 255;
+  color currentCol;
   float opacity;
   float borderThickness;
   
@@ -47,7 +48,7 @@ class Root {
     this.speed = speed;
     this.fertile = fertile;
     //sizeDecreaseMultiplier = random(0.02, 0.1);
-    col = 0; 
+    currentCol = startCol;
     opacity = 255;
     //borderThickness = random(minBorderThickness, maxBorderThickness);
   }
@@ -82,9 +83,6 @@ class Root {
     xPos += deltaX;
     yPos += deltaY;
 
-    // Color change
-    //col += fadeSpeed;
-
     // Width
     widthDecreaseMultiplier = random(widthDecreaseMultiplierMin, widthDecreaseMultiplierMax);
     // sometimes the roots grow a tiny bit in girth
@@ -96,8 +94,10 @@ class Root {
      radius = radius - (radius * widthDecreaseMultiplier);
     }
     
+    currentCol -= 10;
+    
     // Append next circle to end of root
-    circles.add(new Circle(xPos, yPos, radius, col));
+    circles.add(new Circle(xPos, yPos, radius, currentCol));
   }
   
   boolean isRemovable() {
@@ -111,7 +111,6 @@ class Root {
     for (Iterator<Circle> iterator = circles.iterator(); iterator.hasNext();) {
       Circle circle = iterator.next();
       
-      //strokeWeight(borderThickness);
       circle.display();
       if (circle.borderCol <= 0) {
         iterator.remove();
