@@ -13,7 +13,8 @@ class Circle {
     xPos = x;
     yPos = y;
     radius = rad;
-    borderCol = c;
+    borderCol = 0;
+    //borderCol = c;
     //borderCol = (int) (radius*5 ); // Depending on radius
     fillCol = 255;   
   }
@@ -21,9 +22,9 @@ class Circle {
   void display() {
     
     // fade the border
-    if (borderCol < 255) {
-      borderCol += fadingSpeed;
-    }
+    //if (borderCol < 255) {
+    //  borderCol += fadingSpeed;
+    //}
     stroke(borderCol);
     borderThickness = 0.8 + radius * 0.03;
     strokeWeight(borderThickness);

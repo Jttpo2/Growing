@@ -23,7 +23,10 @@ void setup() {
 }
 
 void draw() {
-  background(255);
+  //background(255);
+  fill(255, 10);
+  rect(0, 0, width, height);
+  
   
   if (makeNewRoots) {
     float newRootDie = random(0, 1);
@@ -42,6 +45,9 @@ void draw() {
       iterator.remove();
     }
   }
+  
+  // Display framerate in title bar
+  surface.setTitle((int) frameRate + " fps");
   
   //filter(BLUR, 0.5);
 }
