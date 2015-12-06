@@ -21,7 +21,7 @@ class Root {
   int xPos;
   int yPos;
   float radius;
-  color startCol = 255;
+  color startCol = 230;
   color currentCol;
   float opacity;
   float borderThickness;
@@ -94,7 +94,9 @@ class Root {
      radius = radius - (radius * widthDecreaseMultiplier);
     }
     
-    currentCol -= 10;
+    if (currentCol > 0) {
+      currentCol -= 5;
+    } else currentCol = 0;
     
     // Append next circle to end of root
     circles.add(new Circle(xPos, yPos, radius, currentCol));

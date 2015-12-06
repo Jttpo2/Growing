@@ -30,5 +30,6 @@ class Circle {
     fill(fillCol);
     
     ellipse(xPos, yPos, radius, radius);
+    //filter(BLUR, map(borderCol, 0, 255, 0, 0.2));
   }
 }
