@@ -15,7 +15,6 @@ float newThicknessMax = 30;
 boolean continuous = true; // Continuous mode produces roots all the time
 boolean makeNewRoots = true; // Or at least until toggled
 
-//List<RootMaker> rootMakers;
 ConcurrentHashMap <RootMaker, RootMaker> rootMakers;
 
 static final String defaultInputType = Input.mouse;
@@ -29,9 +28,6 @@ void setup() {
   blur.set("sigma", sigma);
   blur.set("blurSize", blurSize);
   
-  //rootMakers = new ArrayList<RootMaker>();
-  //rootMakers.add(new RootMaker(defaultInputType));
-  
   rootMakers = new ConcurrentHashMap<RootMaker, RootMaker>();
   RootMaker newRM = new RootMaker(defaultInputType);
   rootMakers.put(newRM, newRM);
@@ -44,10 +40,6 @@ void draw() {
     rect(0, 0, width, height);
     filter(blur);
   }
-  
-  //for (RootMaker rm: rootMakers) {
-  //  rm.update();
-  //}
   
   Iterator<RootMaker> iterator = rootMakers.keySet().iterator();
   while (iterator.hasNext()) {
