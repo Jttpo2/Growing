@@ -1,11 +1,15 @@
 class RootMaker {
   List<Root> roots;
+  Input input;
   
-  RootMaker() {
+  RootMaker(String inputType) {
     roots = new ArrayList<Root>();
+    input = new Input(inputType);
   }
   
   void update() {
+    input.update();
+    
     // In continuous mode we make roots all the time if toggle is on
   // Otherwise we just grow them while pressing a mouse button
   if (continuous) {

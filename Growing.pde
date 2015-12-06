@@ -1,9 +1,5 @@
 import java.util.Iterator;
 
-Input input;
-final static String inputType = "mouse";
-//final static String inputType = "phone";
-
 PShader blur;
 float sigma = 0.31;
 int blurSize = 2;
@@ -20,24 +16,20 @@ boolean makeNewRoots = true; // Or at least until toggled
 
 List<RootMaker> rootMakers;
 
-
 void setup() {
   size(600, 600, P3D);
   frameRate(150);
   background(255);
-  
-  input = new Input(inputType);
   
   blur = loadShader("blur.glsl");
   blur.set("sigma", sigma);
   blur.set("blurSize", blurSize);
   
   rootMakers = new ArrayList<RootMaker>();
-  rootMakers.add(new RootMaker());
+  rootMakers.add(new RootMaker(Input.mouse));
 }
 
 void draw() {
-  input.update();
   
   if (millis() - lastFade > fadeInterval) {
     fill(255, 2);

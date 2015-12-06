@@ -9,7 +9,9 @@ class Input {
   
   String type;
   final static String mouse = "mouse";
-  final static String phone = "phone";
+  final static String accelerometer = "accelerometer";
+  final static String tuio = "TUIO";
+  
   boolean flatMode = true; // If true flat is normal state, if false up is normal state. Mobile will be held as a joystick instead of in the palm
 
   OscP5 osc;
@@ -21,7 +23,7 @@ class Input {
   Input(String type) {
     this.type = type;
     
-    if (type.equals(phone)) {
+    if (type.equals(accelerometer)) {
       initPhoneConnection();
     }
     
@@ -31,7 +33,7 @@ class Input {
     if (type.equals(mouse)) {
       x = mouseX;
       y = mouseY;
-    } else if (type.equals(phone)) {
+    } else if (type.equals(accelerometer)) {
       
     }
   }
@@ -51,7 +53,7 @@ class Input {
   }
   
   void oscEvent(OscMessage m) {
-    //println(m);
+    println(m);
   }
   
   void initPhoneConnection() {
