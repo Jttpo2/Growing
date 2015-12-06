@@ -12,7 +12,7 @@ class Root {
   float widthIncreaseLikelihood = 0.2;
   float minRadius = 3;
   
-  
+  float xOffset = 0; // For Perlin noise generation 
  
   List<Circle> circles = new ArrayList<Circle>(); 
   List<Root> roots = new ArrayList<Root>();
@@ -74,7 +74,9 @@ class Root {
     }
     
     // Calculate new position
-    direction += random(-directionInterval/2, directionInterval/2);  
+    //direction += random(-directionInterval/2, directionInterval/2);
+    xOffset += 0.01;
+    direction = 90;// + noise(xPos+ xOffset);
     float deltaX = speed * cos(radians(direction));
     float deltaY = speed * sin(radians(direction));
     xPos += deltaX;

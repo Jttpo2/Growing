@@ -14,7 +14,7 @@ List<Root> roots;;
 
 void setup() {
   size(400, 400, P2D);
-  frameRate(350);
+  frameRate(100);
   background(255);
   
   blur = loadShader("blur.glsl");
